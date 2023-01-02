@@ -1,0 +1,108 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+       
+        "pipName": {
+            "value": "pip-az700-1"
+        },
+        "pipSku": {
+            "value": {
+                "name": "Basic"
+            }
+        },
+        "pipProperties": {
+            "value": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
+        "nsgName": {
+            "value": "nsg-az700-01"
+        },
+        "nsgProperties": {
+            "value": {
+                "flushConnection": false
+            }
+        },
+        "nsgsrSecurityRules": {
+            "value": [
+                {
+                    "name": "SSH",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "22"
+                    }
+                }
+            ]
+        },
+        "createRules":{
+            "value": true
+        },
+        "nicName": {
+            "value": "nic-az700-01"
+        },
+        "vnetName": {
+          "value": "vnet-az700-01"
+        },
+        "snetName": {
+          "value": "subnet1"
+        },
+        "nicProperties": {
+          "value": {
+            "ipConfigurations": [
+              {
+                "name": "config01",
+                "properties": {
+                  "privateIPAddressVersion": "IPv4",
+                  "privateIPAllocationMethod": "Dynamic"
+                }
+              }
+            ],
+            "nicType": "Standard"
+          } 
+        },
+        "createNsg": {
+            "value": true
+        },       
+        "vmName": {
+            "value": "vm-az700-01"
+        },
+        "vmProperties": {
+            "value": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B1s"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "FromImage",
+                        "deleteOption": "Delete",
+                        "managedDisk": {
+                            "storageAccountType": "StandardSSD_LRS"
+                        }
+                    },
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": []
+                },
+                "osProfile": {
+                    "computerName": "vm-az700-01",
+                    "adminUsername": "vkoster",
+                    "adminPassword": "59DasMussBesserWerden!"
+                }
+            }
+        }
+    }
+}

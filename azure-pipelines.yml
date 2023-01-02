@@ -1,0 +1,128 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+parameters:
+  - name: country
+    type: string
+    default: de
+    values:
+      - de                # as of now, there is only de
+  - name: stage           # the stage to deploy
+    type: string          # see the enum data types in the following section
+    default: dev          # default value; if no default, then the parameter MUST be given by the user at runtime
+    values:
+      - dev
+      - qa
+  - name: domain          # the idea is to group together resources that belong to a given domain
+    type: string
+    default: az700
+    values:
+      - az700
+      - playground
+      - aksterraform
+
+trigger:
+- none
+
+variables:
+  # Globale Variablen
+  - name: metaLocation
+    value: westeurope
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    echo $(pwd)
+    # Double quotes to retain newlines...
+    echo "$(ls -al)"
+  displayName: 'Where am I:'
+
+# Azure PowerShell
+# Run a shell or batch script against an Azure subscription
+# Create Resource Groups
+- task: AzureCLI@2
+  displayName: 'Bicep: create resource groups'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'     # service connection
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -metaLocation $(metaLocation)'
+    scriptPath: $(Build.SourcesDirectory)/modules/resourcegroup/deploy.ps1
+
+# ==============================================================================
+# Run the assemblers to create resources
+# ------------------------------------------------------------------------------
+# Create VNets
+- task: AzureCLI@2
+  displayName: 'Assembler: creating vnets'
+  condition: true
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/vnet/deploy.ps1
+
+- task: AzureCLI@2
+  displayName: 'Assembler: creating vnet peerings'
+  condition: true
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/vnet-peer/deploy.ps1
+
+- task: AzureCLI@2
+  displayName: 'Assembler: creating public IPs'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/pip/deploy.ps1
+
+- task: AzureCLI@2
+  displayName: 'Assembler: creating storage accounts'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/storage-account/deploy.ps1
+
+- task: AzureCLI@2
+  displayName: 'Assembler: creating network security group'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/nsg/deploy.ps1
+
+- task: AzureCLI@2
+  displayName: 'Assembler: creating network interface card (nic)'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/nic/deploy.ps1
+
+- task: AzureCLI@2
+  displayName: 'Assembler: creating vm'
+  condition: true
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/deploy/assembler/vm/deploy.ps1

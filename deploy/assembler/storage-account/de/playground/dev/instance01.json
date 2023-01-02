@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "stName": {
+            "value": "stplaygroundterrastate"
+        },
+        "stSku": {
+            "value": {
+                "name": "Standard_LRS"
+            }
+        },
+        "stKind": {
+            "value":  "StorageV2"
+        },
+        "stbsProperties": {
+            "value": {
+                "containerDeleteRetentionPolicy": {
+                    "allowPermanentDelete": true,    
+                    "enabled": true,
+                    "days": 1
+                },
+                "changeFeed": {
+                    "enabled": true,
+                    "retentionInDays": 31
+                },
+                "isVersioningEnabled": true
+            }
+        },
+        "stbsconName": {
+            "value": "terrastate"
+        },
+        "createBlobServices": {
+            "value": true
+        },
+        "createContainers":{
+            "value": true
+        }
+    }
+}

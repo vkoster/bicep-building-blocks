@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnet1Name": {
+      "value": "vnet-az700-01"
+    },
+    "vnet2Name": {
+      "value": "vnet-az700-02"
+    },
+    "peer1Name": {
+      "value": "peer-vnet-az700-01-vnet-az700-02"
+    },
+    "peer2Name": {
+      "value": "peer-vnet-az700-02-vnet-az700-01"
+    },
+    "peer1Properties": {
+      "value": {
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "allowVirtualNetworkAccess": true,
+        "remoteAddressSpace": {
+            "addressPrefixes": [                     
+              "10.0.1.0/26",
+              "10.0.1.64/26"
+            ]  
+        },
+        "useRemoteGateways": false
+      }
+    },
+    "peer2Properties": {
+      "value": {
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "allowVirtualNetworkAccess": true,
+        "remoteAddressSpace": {
+            "addressPrefixes": [                     
+              "10.0.0.0/26",
+              "10.0.0.64/26"
+            ]  
+        },
+        "useRemoteGateways": false
+      }
+    }
+  }
+}

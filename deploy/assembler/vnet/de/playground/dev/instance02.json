@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "value": "vnet-playground-02"
+        },
+        "vnetProperties": {
+            "value": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                            "10.0.1.0/24"
+                    ] 
+                },
+                "enableDdosProtection": false
+            }
+        },               
+        "snetSubnets": {
+            "value": [
+                {
+                    "snetName": "subnet1",
+                    "snetProperties": {
+                        "addressPrefix": "10.0.1.0/26"
+                    } 
+                },
+                {
+                    "snetName": "subnet2",
+                    "snetProperties": {
+                        "addressPrefix": "10.0.1.64/26"
+                    }                   
+                }
+            ]
+        }
+    }
+}

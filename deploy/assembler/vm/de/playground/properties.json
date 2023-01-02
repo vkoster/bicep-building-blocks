@@ -1,0 +1,99 @@
+properties: {  
+    "hardwareProfile": {
+      "vmSize": 'Standard_B2s'
+    }
+    host: {
+      id: 'string'
+    }
+    hostGroup: {
+      id: 'string'
+    }
+    licenseType: 'string'
+    networkProfile: {
+      networkApiVersion: '2020-11-01'
+      networkInterfaceConfigurations: [
+        {
+          name: 'string'
+          properties: {
+            deleteOption: 'Delete'
+            ipConfigurations: [
+              {
+                name: 'string'
+                properties: {
+                  applicationGatewayBackendAddressPools: [
+                    {
+                      id: 'string'
+                    }
+                  ]
+                  applicationSecurityGroups: [
+                    {
+                      id: 'string'
+                    }
+                  ]
+                  loadBalancerBackendAddressPools: [
+                    {
+                      id: 'string'
+                    }
+                  ]
+                  primary: bool
+                  privateIPAddressVersion: 'string'
+                  publicIPAddressConfiguration: {
+                    name: 'string'
+                    properties: {
+                      deleteOption: 'string'
+                      dnsSettings: {
+                        domainNameLabel: 'string'
+                      }
+                      idleTimeoutInMinutes: int
+                      ipTags: [
+                        {
+                          ipTagType: 'string'
+                          tag: 'string'
+                        }
+                      ]
+                      publicIPAddressVersion: 'string'
+                      publicIPAllocationMethod: 'string'
+                      publicIPPrefix: {
+                        id: 'string'
+                      }
+                    }
+                    sku: {
+                      name: 'string'
+                      tier: 'string'
+                    }
+                  }
+                  subnet: {
+                    id: 'string'
+                  }
+                }
+              }
+            ]
+            networkSecurityGroup: {
+              id: 'string'
+            }
+            primary: bool
+          }
+        }
+      ]
+      networkInterfaces: [
+        {
+          id: 'string'
+          properties: {
+            deleteOption: 'string'
+            primary: bool
+          }
+        }
+      ]
+    }
+    osProfile: {
+      adminPassword: 'string'
+      adminUsername: 'string'
+      computerName: 'string'
+      customData: 'string'
+      linuxConfiguration: {
+        patchSettings: {
+          patchMode: 'string'
+        }
+      }
+    }
+  }
