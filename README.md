@@ -4,6 +4,8 @@ It is an effort to create reusable Bicep building blocks for deploying Microsoft
 
 The intention is to figure out, how to create bicep code that is flexible enough to facilitate reuse.
 
+Please refer to [wiki](https://github.com/vkoster/bicep-building-blocks/wiki) for more information.
+
 ## Utility commands
 ````
 // What is my current tenant:

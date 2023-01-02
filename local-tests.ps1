@@ -8,12 +8,7 @@ How to run the tests:
 Remarks:
 - $country, $domain and $stage are just parameters that define the resouce group to deploy to
 - the resource group must already be in place - it will not be created automatically
- #>
- #>
- #>
- #>
- #>
- #>
+#>
 
 ------------------------------------------------------------------------------#>
 
