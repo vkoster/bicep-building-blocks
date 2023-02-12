@@ -6,9 +6,6 @@ Dieser Assembler legt eine VM mit
 
 ----------------------------------------------------------------------------- */
 
-// Location einmal für alle Module ermitteln
-param location string = resourceGroup().location
-
 // public IP-Address
 param pipName string
 param pipSku object
@@ -30,6 +27,9 @@ param createNsg     bool
 // VM Parameter
 param vmName        string
 param vmProperties  object
+
+// Location einmal für alle Module ermitteln
+param location      string = resourceGroup().location
 
 // create a pip
 module pipModule '../../core/pip/pip.bicep' = {

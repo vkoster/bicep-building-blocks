@@ -1,8 +1,6 @@
 // storage account
 @description('Storage Account Sku')
 param stSku object
-@description('Location for the storage account.')
-param stLocation string = resourceGroup().location
 @description('The name of the Storage Account')
 param stName string
 param stKind string
@@ -17,11 +15,13 @@ param stbsconName string
 param createBlobServices bool
 param createContainers   bool
 
+param  location string = resourceGroup().location
+
 // consuming the storage-account Core Module
 module stModule '../../core/storage-account/storage-account.bicep' = {
   name: 'stDeploy'
   params: {
-    stLocation: stLocation
+    stLocation: location
     stSku: stSku
     stName: stName
     stKind: stKind
