@@ -34,7 +34,9 @@ These parameters define both what is to be deployed and the Azure resource group
 
 Without going into details about assembler and core module, described here (TODO: insert link), 
 let's take a look at the deployment of public IPs:
+
 <img src="images\Deploy-PIPs.png">
+
 This shows the layout of directories:
 - assembler/ is the top-level directory, hosting all assembler modules"
 - pip/ contains the public IP assembler
@@ -74,8 +76,8 @@ foreach ($instance in $instances) {
 }
 ````
 The parameters define the "deployment vector": (country, domain, stage).
-The loop picks up every pip instance.json file within the directory denoted by the deployment vector and 
-deploys it by calling on the Azure CLI.
+The loop picks up every pip instance.json file within the directory denoted by the deployment vector
+(currently, there is ony one) and deploys it by calling on the Azure CLI.
 
 This structure is the same for all building blocks.
 

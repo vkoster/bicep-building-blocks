@@ -2,20 +2,68 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-      "nicName": {
-          "value": "nic-az700-01"
-      },
       "vnetName": {
         "value": "vnet-az700-01"
       },
       "snetName": {
         "value": "subnet1"
       },
+      "existingPip": {
+        "value": false
+      },
+      "newPip": {
+        "value": true
+      },
       "pipName": {
         "value": "pip-az700-01"
       },
+      "pipSku": {
+        "value": {
+            "name": "Basic"
+        }
+      },
+      "pipProperties": {
+          "value": {
+              "publicIPAddressVersion": "IPv4",
+              "publicIPAllocationMethod": "Dynamic"
+          }
+      },
+      "existingNsg": {
+        "value": false
+      },
+      "newNsg": {
+        "value": true
+      },
+      "createRules":{
+        "value": true
+      },
       "nsgName": {
         "value": "nsg-az700-01"
+      },
+      "nsgProperties": {
+        "value": {
+            "flushConnection": false
+        }
+      },
+      "nsgsrSecurityRules": {
+          "value": [
+              {
+                  "name": "SSH",
+                  "properties": {
+                      "priority": 300,
+                      "protocol": "TCP",
+                      "access": "Allow",
+                      "direction": "Inbound",
+                      "sourceAddressPrefix": "*",
+                      "sourcePortRange": "*",
+                      "destinationAddressPrefix": "*",
+                      "destinationPortRange": "22"
+                  }
+              }
+          ]
+      },
+      "nicName": {
+        "value": "nic-az700-01"
       },
       "nicProperties": {
         "value": {
@@ -30,9 +78,6 @@
           ],
         "nicType": "Standard"
       } 
-    },
-    "createNsg": {
-      "value": true
     }
   }
 }

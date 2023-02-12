@@ -1,8 +1,9 @@
-param location string = resourceGroup().location
 param nsgName string
 param nsgProperties object
 param nsgsrSecurityRules array       // children: security rules 
 param createRules bool               // flag for creating the rules
+
+param location string = resourceGroup().location
 
 // consuming the NSG Core Module
 module nsgModule '../../core/nsg/nsg.bicep' = {

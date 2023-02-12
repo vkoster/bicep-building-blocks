@@ -3,7 +3,6 @@ param vnetName string
 param vnetProperties object
 param snetSubnets array 
 
-
 resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' = {
   name:       vnetName
   location:   location
