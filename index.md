@@ -1,5 +1,4 @@
 ---
-permalink: /home/
 title: Reusable Bicep Building Blocks
 ---
 # Welcome to my Reusable Bicep Building-Blocks pages!
