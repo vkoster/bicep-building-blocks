@@ -274,3 +274,11 @@ it simply already exists and gets referenced. But in any case, if the complex re
 referenced resource regularly continues to exist.
 You can see this in the Azure portal when you delete complex objects like a Virtual Machine for example.
 You have to decide whether attached (referenced) resources like the NIC shall be deleted along the line.
+
+With references, the assembler has to deal with these situations:
+
+- we want it to create and attach a reference
+- we want it to attach an existing reference
+- we don't want the reference to be attached at all
+
+
