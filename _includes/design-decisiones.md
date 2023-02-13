@@ -1,5 +1,5 @@
 ---
-permalink: /home/design-decisions/
+permalink: /design-decisions/
 ---
 # Two-Tier Structure
 ## First Assemble then Deploy

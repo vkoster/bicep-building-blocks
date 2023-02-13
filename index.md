@@ -9,7 +9,7 @@ Things to notice:
   - That's one reason why I'm posting this in a personal repo
 - My company [MT-itsolutions](https://www.mt-itsolutions.com/) is not to blame for my follies
   - I take full responsibility for any nonsense and all errors published on this site
-- This is my first take on GitHub Pages and I'm not a frontend guy - have mercy
+- This is my first take on GitHub Pages, and I'm not a frontend guy - have mercy
 
 ## Background and Motivation
 Bicep is a big improvement compared to directly deploying ARM templates.

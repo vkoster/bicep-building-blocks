@@ -1,5 +1,5 @@
 ---
-permalink: /home/deployment/
+permalink: /deployment/
 ---
 # Deployment
 ## Introduction
