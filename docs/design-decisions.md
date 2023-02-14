@@ -108,7 +108,7 @@ signature of the module to change and introduces a breaking change.
 ### Resource-Type Top-Level Properties as Parameters
 My overarching guideline of how to hack resource templates into pieces that will be turned into parameters
 is the [Azure Templates Reference](https://learn.microsoft.com/en-us/azure/templates/).
-These templates are structured into resource-types: '<provider>/<resource-type>@<api-version>.
+These templates are structured into resource-types: ```<provider>/<resource-type>@<api-version>```.
 I use the first level properties of a given resource template as parameters.
 
 Let's take Public IP Addresses (pip) as an example.
@@ -153,7 +153,7 @@ Out of laziness I left out:
 Note:
 - a complete setup would include the left-outs too, at least as empty objects
 - "location" is a special case as Bicep has a function do derive this from the resource-group - no parameter needed
-- I'm passing the resource name in - with good naming conventions this parameter could be omitted
+- I'm passing the resource name in - with good naming conventions you could let the module decide on its name
 
 The above parameter file is passed into the assembler "main.bicep"
 In this simple case - no child resources, no referenced resources - the assebmler just calls the pip core module.
