@@ -48,5 +48,6 @@ az account list
 az account set --subscription <my subscription>
 ````
 
+|[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
 
 

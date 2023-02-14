@@ -111,3 +111,5 @@ Here is the snippet containing the pip task:
     arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
     scriptPath: $(Build.SourcesDirectory)/deploy/assembler/pip/deploy.ps1
 ````
+
+|home | design decisions| deployment|
