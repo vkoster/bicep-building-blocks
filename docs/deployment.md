@@ -112,4 +112,4 @@ Here is the snippet containing the pip task:
     scriptPath: $(Build.SourcesDirectory)/deploy/assembler/pip/deploy.ps1
 ````
 
-|home | design decisions| deployment|
+|[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
