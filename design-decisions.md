@@ -11,7 +11,7 @@ In most cases Azure resources are complex, i.e structured objects.
 A complex resource may be composed of an arbitrary number of embedded child resources or referenced resources (s.b.).
 
 Just take a look at a network interface card (NIC) as an example:
-<img src="images\Network-Interface-Card.png">
+<img src="{{site.baseurl}}/images/Network-Interface-Card.png">
 
 So the job is to deploy complex resources composed of other resources, referenced or embedded.
 Therefore, we create assembler- and core-modules.
@@ -38,7 +38,7 @@ The assembler deployment script loops over all parameter files, i.e. instance fi
 and passes them into the Bicep assembler.
 The following example shows the deployment of two VNets for the triple (de, az700, dev):
 
-<img src="images\vnet-deployment.png">
+<img src="{{site.baseurl}}/images/vnet-deployment.png">
 
 Let's discuss the file "instance01.json", representing the first VNet instance:
 ````
@@ -114,7 +114,7 @@ I use the first level properties of a given resource template as parameters.
 Let's take Public IP Addresses (pip) as an example.
 Here's the top-level properties definition of a pip:
 
-<img src="images\pip-top-level-properties.png">
+<img src="{{site.baseurl}}/images/pip-top-level-properties.png">
 
 These properties are my parameters for describing a pip-instance.
 The respective parameter file "instance01.json" looks like this:
@@ -167,7 +167,7 @@ They are created by their parents and cannot exist without them. However they ha
 The [Azure Templates Reference](https://learn.microsoft.com/en-us/azure/templates/) shows child resources like the
 (take a VNet with its SNets as an example):
 
-<img src="images\vnet-subnet-resource.png">
+<img src="{{site.baseurl}}/images/vnet-subnet-resource.png">
 
 These are the respected resouce types of VNet and SNet:
 - VNet: Microsoft.Network/virtualNetworks
@@ -179,7 +179,7 @@ You could say that the SNets namespace is part of the VNets namespace.
 The decision here is that the core module is responsible for creating its child resources.
 This is really a decision, because it could be done differently. Take a look at the documentation again:
 
-<img src="images\vnet-properties.png">
+<img src="{{site.baseurl}}/images/vnet-properties.png">
 
 **Attention**: The subnet-array is part of the VNet properties object. So it would of course be possible to specify the subnets as 
 part of the properties parameter in the json file. This is in fact how Microsoft suggests to do it, as described

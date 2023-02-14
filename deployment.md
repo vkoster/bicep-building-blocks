@@ -35,7 +35,7 @@ These parameters define both what is to be deployed and the Azure resource group
 Without going into details about assembler and core module, described here (TODO: insert link), 
 let's take a look at the deployment of public IPs:
 
-<img src="{{site.baseurl}}/images>/Deploy-PIPs.png">
+<img src="{{site.baseurl}}/images/Deploy-PIPs.png">
 
 This shows the layout of directories:
 - assembler/ is the top-level directory, hosting all assembler modules"
