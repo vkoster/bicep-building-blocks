@@ -8,13 +8,13 @@ Its just a way to demonstrate that things are working and see the building block
 As mentioned already, I came into contact with Bicep in a largish project consisting of number of business domains
 who's resources had to be rolled out to different countries.
 Of course I wanted be able to do the same, even when my focus was on reusing Bicep code.
-And this is really the only reason for the structures chosen here and I will keep this section as short as possible.
+This is really the only reason for the structures chosen here and I will keep this section as short as possible.
 
 ## Deployment Options
 Deployment can be done in two ways:
 - running an Azure DevOps Pipeline 
   - the pipeline is defined in azure-pipelines.yml
-- running a scripts from a local PowerShell console
+- running scripts from a local PowerShell console
 
 Both the pipeline and the local PowerShell are running the same assembler scripts, which are parameterized in 
 exactly the same way (see below).
@@ -35,7 +35,7 @@ These parameters define both what is to be deployed and the Azure resource group
 Without going into details about assembler and core module, described here (TODO: insert link), 
 let's take a look at the deployment of public IPs:
 
-<img src="images\Deploy-PIPs.png">
+<img src="{{site.baseurl}}/images>/Deploy-PIPs.png">
 
 This shows the layout of directories:
 - assembler/ is the top-level directory, hosting all assembler modules"
