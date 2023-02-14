@@ -21,13 +21,21 @@ It is my personal opinion that re-usability cannot be achieved by specifying all
 Why is this not a good idea:
 - there will be too many of them
 - they are out of context
-- adding one changes the module signature and is a breaking change
+- adding one, changes the module's signature and is a breaking change
 
 The last point is the most important one as it is the death of re-use.
 
 The solution described here exposes template fragments as parameters. Maybe this is also not ideal for other reasons.
 Nevertheless I gave this try and share the results here.
 
+The repository on which this site is based, contains the current state of the implementation.
+
+- [design decisions](design-decisions.md) describes the approach
+- [deployment](deployment.md) describes how the deployment to Azure works
+
+Currently, the NIC assembler is the most complex one as it assembles a lot of resources and solves the 
+problem of optionally assigning resources. It also lets you choose between assigning existing or 
+newly created resources.
 
 ## Utility commands
 ````
