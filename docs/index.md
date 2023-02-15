@@ -16,14 +16,14 @@ Bicep is a big improvement compared to directly deploying ARM templates.
 Apart from being much more readable, it wants us to reuse stuff by introducing modules.
 But as it turned out during the last 2 years, real reuse still is quite hard to achieve.
 
-It is my personal opinion that re-usability cannot be achieved by specifying all parameters as primitive values.
+It is my personal opinion that reusability cannot be achieved by specifying all parameters as primitive values.
 
 Why is this not a good idea:
 - there will be too many of them
 - they are out of context
 - adding one, changes the module's signature and is a breaking change
 
-The last point is the most important one as it is the death of re-use.
+The last point is the most important one as it is the death of reuse.
 
 The solution described here exposes template fragments as parameters. Maybe this is also not ideal for other reasons.
 Nevertheless I gave this try and share the results here.

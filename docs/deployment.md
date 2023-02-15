@@ -1,5 +1,7 @@
 ---
 permalink: /deployment/
+title: deployment
+description: This page describes how to deploy the Bicep modules for testing and verification
 ---
 # Deployment
 ## Introduction
@@ -96,6 +98,26 @@ $resourceGroup = "rg-${country}-${domain}-${stage}"
 ./deploy/assembler/pip/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
 ````
 Note: for this to work, the resource group must already exist (there is a special module for creating resouce groups).
+
+The file "local-tests.ps1" contains a call for each currently available assembler:
+```
+$country = "de"
+$domain  = "az700"
+$stage   = "dev"
+$resourceGroup = "rg-${country}-${domain}-${stage}"
+$country = "de"
+$domain  = "playground"
+$stage   = "dev"
+$resourceGroup = "rg-${country}-${domain}-${stage}"
+./deploy/assembler/vnet/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/vnet-peer/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/storage-account/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/nsg/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/pip/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/nic/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/vm/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+```
+Copy an assembler call and paste it into PowerShell console running an Azure connection.
 
 ### Deploy via Azure Pipeline
 The pipeline does exactly the same.
