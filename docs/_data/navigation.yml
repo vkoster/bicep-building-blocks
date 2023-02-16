@@ -1,8 +1,9 @@
 - name: home
-  file: {% site.baseurl %}
+  file: index.html
 - name: design decisions
   file: design-decisions/
 - name: deployment
   file: deployment/
 - name: implementations
   file: implementations/
+  
