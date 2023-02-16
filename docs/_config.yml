@@ -6,3 +6,4 @@ title: Reusable Bicep Building-Blocks
 baseurl: /bicep-building-blocks
 tagline: Azure reusable bicep building-blocks | infrastructure-as-code
 description: Deploy Azure resources with reusable building-blocks defined in the Bicep language
+tags: [Bicep, Azure, iac, reuse, modules]
