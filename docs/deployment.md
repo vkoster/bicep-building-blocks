@@ -4,6 +4,9 @@ title: deployment
 description: This page describes how to deploy the Bicep modules for testing and verification
 ---
 # Deployment
+{% for link in site.data.navigation %}
+  - [{{ link.name }}]({{ link.file }})
+{% endfor %}
 ## Introduction
 Deploying Azure resources is not what this repository is about.
 Its just a way to demonstrate that things are working and see the building blocks in action.

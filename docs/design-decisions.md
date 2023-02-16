@@ -4,6 +4,9 @@ title: design decisions
 description: This page describes the design decisions that were taken here in order to facilitate Bicep module reuse
 ---
 # Two-Tier Structure
+{% for link in site.data.navigation %}
+  - [{{ link.name }}]({{ link.file }})
+{% endfor %}
 ## First Assemble then Deploy
 This approach distributes Bicep code over two tiers:
 - assembler-tier
