@@ -50,4 +50,6 @@ az account set --subscription <my subscription>
 
 |[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
 
-
+{% for link in site.data.navigation %}
+  | [{{ link.name }}]({{ link.file }})|
+{% endfor %}
