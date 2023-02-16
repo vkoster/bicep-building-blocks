@@ -1,8 +1,8 @@
 - name: home
-  file: index.html
+  file: /index.html
 - name: design decisions
-  file: design-decisions/
+  file: /design-decisions/
 - name: deployment
-  file: deployment/
+  file: /deployment/
 - name: implementations
-  file: implementations/
+  file: /implementations/
