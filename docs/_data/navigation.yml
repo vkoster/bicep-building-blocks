@@ -1,8 +1,8 @@
 - name: home
-  file: /
+  file: bicep-building-blocks/
 - name: design decisions
   file: design-decisions/
 - name: deployment
   file: deployment/
 - name: implementations
-  file: nyi/
+  file: implementations/
