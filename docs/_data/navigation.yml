@@ -1,5 +1,5 @@
 - name: home
-  file: index.html
+  file: {% site.baseurl %}
 - name: design decisions
   file: design-decisions/
 - name: deployment
