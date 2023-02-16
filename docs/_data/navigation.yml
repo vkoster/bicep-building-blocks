@@ -1,8 +1,8 @@
 - name: home
-  file: index.md
+  file: index/
 - name: design decisions
-  file: design-decisions.md
+  file: design-decisions/
 - name: deployment
-  file: deployment.md
+  file: deployment/
 - name: implementations
-  file: nyi.md
+  file: nyi/
