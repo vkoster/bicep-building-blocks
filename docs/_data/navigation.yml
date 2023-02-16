@@ -1,5 +1,5 @@
 - name: home
-  file: bicep-building-blocks/
+  file: index.html
 - name: design decisions
   file: design-decisions/
 - name: deployment
