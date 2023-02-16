@@ -2,6 +2,10 @@
 This project is an effort to create reusable Bicep building-blocks.
 Focus lies on researching reuse, not on actually creating a library.
 
+{% for link in site.data.navigation -%}
+  - [{{ link.name }}]({{ link.file }})
+{% endfor %}
+
 ## Disclaimer
 Things to notice:
 - I am by no means a Bicep-professional (experience comes from 2 years of Bicep in a large, real-life project)
@@ -50,6 +54,3 @@ az account set --subscription <my subscription>
 
 |[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
 
-{% for link in site.data.navigation %}
-  | [{{ link.name }}]({{ link.file }})|
-{% endfor %}
