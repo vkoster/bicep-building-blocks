@@ -2,7 +2,7 @@
 This project is an effort to create reusable Bicep building-blocks.
 Focus lies on researching reuse, not on actually creating a library.
 
-{% for link in site.data.navigation -%}
+{% for link in site.data.navigation %}
   - [{{ link.name }}]({{ link.file }})
 {% endfor %}
 
