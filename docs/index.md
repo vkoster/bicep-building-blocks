@@ -2,6 +2,10 @@
 This project is an effort to create reusable Bicep building-blocks.
 Focus lies on researching reuse, not on actually creating a library.
 
+{% for link in site.data.navigation %}
+  - [{{ link.name }}]({{ link.file }})
+{% endfor %}
+
 ## Disclaimer
 Things to notice:
 - I am by no means a Bicep-professional (experience comes from 2 years of Bicep in a large, real-life project)
@@ -9,6 +13,8 @@ Things to notice:
   - That's one reason why I'm posting this in a personal repo
 - My company [MT-itsolutions](https://www.mt-itsolutions.com/) is not to blame for my follies
   - I take full responsibility for any nonsense and all errors published on this site
+- You are using this repo at your own risk
+  - I take no responsibility for any damage caused by code published here
 - This is my first take on GitHub Pages, and I'm not a frontend guy - have mercy
 
 ## Background and Motivation
@@ -16,14 +22,14 @@ Bicep is a big improvement compared to directly deploying ARM templates.
 Apart from being much more readable, it wants us to reuse stuff by introducing modules.
 But as it turned out during the last 2 years, real reuse still is quite hard to achieve.
 
-It is my personal opinion that re-usability cannot be achieved by specifying all parameters as primitive values.
+It is my personal opinion that reusability cannot be achieved by specifying all parameters as primitive values.
 
 Why is this not a good idea:
 - there will be too many of them
 - they are out of context
 - adding one, changes the module's signature and is a breaking change
 
-The last point is the most important one as it is the death of re-use.
+The last point is the most important one as it is the death of reuse.
 
 The solution described here exposes template fragments as parameters. Maybe this is also not ideal for other reasons.
 Nevertheless I gave this try and share the results here.
@@ -48,5 +54,5 @@ az account list
 az account set --subscription <my subscription>
 ````
 
-
+|[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
 

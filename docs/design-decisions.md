@@ -1,7 +1,12 @@
 ---
 permalink: /design-decisions/
+title: design decisions
+description: This page describes the design decisions that were taken here in order to facilitate Bicep module reuse
 ---
 # Two-Tier Structure
+{% for link in site.data.navigation %}
+  - [{{ link.name }}]({{ link.file }})
+{% endfor %}
 ## First Assemble then Deploy
 This approach distributes Bicep code over two tiers:
 - assembler-tier
@@ -11,7 +16,7 @@ In most cases Azure resources are complex, i.e structured objects.
 A complex resource may be composed of an arbitrary number of embedded child resources or referenced resources (s.b.).
 
 Just take a look at a network interface card (NIC) as an example:
-<img src="images\Network-Interface-Card.png">
+<img src="{{site.baseurl}}/images/Network-Interface-Card.png">
 
 So the job is to deploy complex resources composed of other resources, referenced or embedded.
 Therefore, we create assembler- and core-modules.
@@ -38,7 +43,7 @@ The assembler deployment script loops over all parameter files, i.e. instance fi
 and passes them into the Bicep assembler.
 The following example shows the deployment of two VNets for the triple (de, az700, dev):
 
-<img src="images\vnet-deployment.png">
+<img src="{{site.baseurl}}/images/vnet-deployment.png">
 
 Let's discuss the file "instance01.json", representing the first VNet instance:
 ````
@@ -108,13 +113,13 @@ signature of the module to change and introduces a breaking change.
 ### Resource-Type Top-Level Properties as Parameters
 My overarching guideline of how to hack resource templates into pieces that will be turned into parameters
 is the [Azure Templates Reference](https://learn.microsoft.com/en-us/azure/templates/).
-These templates are structured into resource-types: '<provider>/<resource-type>@<api-version>.
+These templates are structured into resource-types: ```<provider>/<resource-type>@<api-version>```.
 I use the first level properties of a given resource template as parameters.
 
 Let's take Public IP Addresses (pip) as an example.
 Here's the top-level properties definition of a pip:
 
-<img src="images\pip-top-level-properties.png">
+<img src="{{site.baseurl}}/images/pip-top-level-properties.png">
 
 These properties are my parameters for describing a pip-instance.
 The respective parameter file "instance01.json" looks like this:
@@ -153,7 +158,7 @@ Out of laziness I left out:
 Note:
 - a complete setup would include the left-outs too, at least as empty objects
 - "location" is a special case as Bicep has a function do derive this from the resource-group - no parameter needed
-- I'm passing the resource name in - with good naming conventions this parameter could be omitted
+- I'm passing the resource name in - with good naming conventions you could let the module decide on its name
 
 The above parameter file is passed into the assembler "main.bicep"
 In this simple case - no child resources, no referenced resources - the assebmler just calls the pip core module.
@@ -167,7 +172,7 @@ They are created by their parents and cannot exist without them. However they ha
 The [Azure Templates Reference](https://learn.microsoft.com/en-us/azure/templates/) shows child resources like the
 (take a VNet with its SNets as an example):
 
-<img src="images\vnet-subnet-resource.png">
+<img src="{{site.baseurl}}/images/vnet-subnet-resource.png">
 
 These are the respected resouce types of VNet and SNet:
 - VNet: Microsoft.Network/virtualNetworks
@@ -179,7 +184,7 @@ You could say that the SNets namespace is part of the VNets namespace.
 The decision here is that the core module is responsible for creating its child resources.
 This is really a decision, because it could be done differently. Take a look at the documentation again:
 
-<img src="images\vnet-properties.png">
+<img src="{{site.baseurl}}/images/vnet-properties.png">
 
 **Attention**: The subnet-array is part of the VNet properties object. So it would of course be possible to specify the subnets as 
 part of the properties parameter in the json file. This is in fact how Microsoft suggests to do it, as described
@@ -281,4 +286,5 @@ With references, the assembler has to deal with these situations:
 - we want it to attach an existing reference
 - we don't want the reference to be attached at all
 
+|[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
 

@@ -1,7 +1,12 @@
 ---
 permalink: /deployment/
+title: deployment
+description: This page describes how to deploy the Bicep modules for testing and verification
 ---
 # Deployment
+{% for link in site.data.navigation %}
+  - [{{ link.name }}]({{ link.file }})
+{% endfor %}
 ## Introduction
 Deploying Azure resources is not what this repository is about.
 Its just a way to demonstrate that things are working and see the building blocks in action.
@@ -35,7 +40,7 @@ These parameters define both what is to be deployed and the Azure resource group
 Without going into details about assembler and core module, described here (TODO: insert link), 
 let's take a look at the deployment of public IPs:
 
-<img src="{{site.baseurl}}/images>/Deploy-PIPs.png">
+<img src="{{site.baseurl}}/images/Deploy-PIPs.png">
 
 This shows the layout of directories:
 - assembler/ is the top-level directory, hosting all assembler modules"
@@ -97,6 +102,26 @@ $resourceGroup = "rg-${country}-${domain}-${stage}"
 ````
 Note: for this to work, the resource group must already exist (there is a special module for creating resouce groups).
 
+The file "local-tests.ps1" contains a call for each currently available assembler:
+```
+$country = "de"
+$domain  = "az700"
+$stage   = "dev"
+$resourceGroup = "rg-${country}-${domain}-${stage}"
+$country = "de"
+$domain  = "playground"
+$stage   = "dev"
+$resourceGroup = "rg-${country}-${domain}-${stage}"
+./deploy/assembler/vnet/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/vnet-peer/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/storage-account/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/nsg/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/pip/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/nic/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+./deploy/assembler/vm/deploy.ps1 -country $country -domain $domain -stage $stage -resourceGroup $resourceGroup
+```
+Copy an assembler call and paste it into PowerShell console running an Azure connection.
+
 ### Deploy via Azure Pipeline
 The pipeline does exactly the same.
 Here is the snippet containing the pip task:
@@ -111,3 +136,5 @@ Here is the snippet containing the pip task:
     arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
     scriptPath: $(Build.SourcesDirectory)/deploy/assembler/pip/deploy.ps1
 ````
+
+|[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|

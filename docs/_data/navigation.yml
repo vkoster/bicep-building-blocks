@@ -1,0 +1,8 @@
+- name: home
+  file: /bicep-building-blocks/index.html
+- name: design decisions
+  file: /bicep-building-blocks/design-decisions/
+- name: deployment
+  file: /bicep-building-blocks/deployment/
+- name: implementations
+  file: /bicep-building-blocks/implementations/
