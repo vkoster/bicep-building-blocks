@@ -2,10 +2,6 @@
 This project is an effort to create reusable Bicep building-blocks.
 Focus lies on researching reuse, not on actually creating a library.
 
-{% for link in site.data.navigation %}
-  - [{{ link.name }}]({{ link.file }})
-{% endfor %}
-
 ## Disclaimer
 Things to notice:
 - I am by no means a Bicep-professional (experience comes from 2 years of Bicep in a large, real-life project)
@@ -15,7 +11,6 @@ Things to notice:
   - I take full responsibility for any nonsense and all errors published on this site
 - You are using this repo at your own risk
   - I take no responsibility for any damage caused by code published here
-- This is my first take on GitHub Pages, and I'm not a frontend guy - have mercy
 
 ## Background and Motivation
 Bicep is a big improvement compared to directly deploying ARM templates.
@@ -34,13 +29,8 @@ The last point is the most important one as it is the death of reuse.
 The solution described here exposes template fragments as parameters. Maybe this is also not ideal for other reasons.
 Nevertheless I gave this try and share the results here.
 
-The repository on which this site is based, contains the current state of the implementation.
-
-- [design decisions](design-decisions.md) describes the approach
-- [deployment](deployment.md) describes how the deployment to Azure works
-
-Currently, the NIC assembler is the most complex one as it assembles a lot of resources and solves the 
-problem of optionally assigning resources. It also lets you choose between assigning existing or 
+Currently, the NIC assembler is the most complex one as it assembles a lot of resources and solves the
+problem of optionally assigning resources. It also lets you choose between assigning existing or
 newly created resources.
 
 ## Utility commands
@@ -53,6 +43,3 @@ az account list
 // attach a default subscription to an account
 az account set --subscription <my subscription>
 ````
-
-|[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
-
