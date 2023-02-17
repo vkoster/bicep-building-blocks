@@ -2,6 +2,8 @@
 This project is an effort to create reusable Bicep building-blocks.
 Focus lies on researching reuse, not on actually creating a library.
 
+The documentation to this project is published on a [GitHub Pages Site](https://vkoster.github.io/bicep-building-blocks/).
+
 ## Disclaimer
 Things to notice:
 - I am by no means a Bicep-professional (experience comes from 2 years of Bicep in a large, real-life project)
@@ -43,3 +45,5 @@ az account list
 // attach a default subscription to an account
 az account set --subscription <my subscription>
 ````
+
+The documentation to this project is published on a [GitHub Pages Site](https://vkoster.github.io/bicep-building-blocks/).
