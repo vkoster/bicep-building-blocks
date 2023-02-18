@@ -1,8 +1,8 @@
 - name: home
-  file: {{ baseurl}}
+  file: {{ site.baseurl}}
 - name: design decisions
-  file: {{ baseurl }}/design-decisions/
+  file: {{ site.baseurl }}/design-decisions/
 - name: deployment
-  file: {{ baseurl }}/deployment/
+  file: {{ site.baseurl }}/deployment/
 - name: implementations
-  file: {{ baseurl }}/implementations/
+  file: {{ site.baseurl }}/implementations/
