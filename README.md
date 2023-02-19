@@ -1,8 +1,8 @@
-# Welcome to my Reusable Bicep Building-Blocks pages!
-This project is an effort to create reusable Bicep building-blocks.
+# Welcome to my Reusable Bicep Modules pages!
+This project is an effort to create reusable Bicep modules.
 Focus lies on researching reuse, not on actually creating a library.
 
-The documentation to this project is published on a [GitHub Pages Site](https://vkoster.github.io/bicep-building-blocks/).
+The documentation to this project is published on a [GitHub Pages Site](https://vkoster.github.io/reusable-bicep-modules/).
 
 ## Disclaimer
 Things to notice:
@@ -46,4 +46,4 @@ az account list
 az account set --subscription <my subscription>
 ````
 
-The documentation to this project is published on a [GitHub Pages Site](https://vkoster.github.io/bicep-building-blocks/).
+The documentation to this project is published on a [GitHub Pages Site](https://vkoster.github.io/reusable-bicep-modules/).

@@ -1,8 +1,8 @@
 ---
 permalink: /
 ---
-# Welcome to my Reusable Bicep Building-Blocks pages!
-This project is an effort to create reusable Bicep building-blocks.
+# Welcome to my Reusable Bicep Modules pages!
+This project is an effort to create reusable Bicep modules.
 Focus lies on researching reuse, not on actually creating a library.
 
 {% for link in site.data.navigation %}
