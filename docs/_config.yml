@@ -5,5 +5,5 @@ plugins:
 title: Reusable Bicep Modules
 baseurl: /reusable-bicep-modules
 tagline: Azure reusable bicep modules | infrastructure-as-code
-description: Deploy Azure resources with reusable building-blocks defined in the Bicep language
-tags: [Bicep, Azure, iac, reuse, modules]
+description: Deploy Azure resources with reusable Bicep modules
+tags: [Bicep, Azure, iac,infrastructure-as-code, reusable, modules]
