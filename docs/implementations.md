@@ -35,7 +35,7 @@ the core module, as IP Configurations are child resource to a NIC:
 But according to the documentation, IP Configurations is a read-only resource type that can only used with the Bicep "existing"
 keyword. Therefore, IP Configurations won't be a separate parameter but will be part of the NIC properties.
 
-Speaking of parameters, lets have a look of how to configure a NIC.
+Speaking of parameters, let's have a look of how to configure a NIC.
 
 ### NIC Parameters
 You will find the complete parameter file in the [Repository](https://github.com/vkoster/reusable-bicep-modules/blob/main/deploy/assembler/nic/de/az700/dev/instance01.json).
@@ -119,5 +119,152 @@ we can decide if we want a new one to be created or an existing one to be used.
 Please note that in the real world you won't have to specify ``pipSKU`` and ``pipProperties`` if you want to 
 assign an existing PIP, which would only require the name.
 I included both options here in on parameter file just for demonstration purposes.
+
+The parameters of the NSG follow the same logic. I will not describe them here.
+
+Finally here is the configuration of the NIC itself:
+````
+...
+"nicName": {
+  "value": "nic-az700-01"
+},
+"nicProperties": {
+  "value": {
+    "ipConfigurations": [
+      {
+        "name": "config01",
+        "properties": {
+          "privateIPAddressVersion": "IPv4",
+          "privateIPAllocationMethod": "Dynamic"
+        }
+      }
+    ],
+    "nicType": "Standard"
+  } 
+}
+...      
+````
+
+Please note that all parameter values, except for the boolean switches needed for the assembler logic, are exact copies taken from the Bicep template documentation.
+This allows for passing them the core modules without any further ado.
+And this further allows us to enrich them either by editing the parameter file or by assembler manipulation as described in the next section.
+The point is that as long as the parameter value is a valid piece of Bicep template, the assembler can pass it down to the 
+core module without a change to the core module's signature.
+
+### NIC Implementation
+This section discusses the implementation of the NIC assembler in detail. The code is located in the NIC assembler's
+[main.bicep](https://github.com/vkoster/reusable-bicep-modules/blob/main/deploy/assembler/nic/main.bicep) file.
+
+The parameter list corresponds to the file discussed above and I will not discuss it again.
+
+The first task is to look up the subnet that we want to assign to the NIC:
+````
+...
+resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' existing =  {
+  name: vnetName
+}
+
+resource snet 'Microsoft.Network/virtualNetworks/subnets@2022-05-01' existing =  {
+  name: snetName
+  parent: vnet
+}
+...
+````
+This is easy, because it is an unconditional look-up and we only need the respective names of VNET and SNET.
+Remember that this implementation expects the network to be already existing.
+
+Next we want to either look-up or create a PIP:
+````
+...
+resource pipExisting 'Microsoft.Network/publicIPAddresses@2022-05-01' existing = if (existingPip) {
+  name: pipName
+}
+
+module pipNew '../../core/pip/pip.bicep' = if (newPip) {
+  name: 'pipCreate'
+  params: {
+    location: location
+    pipName: pipName
+    pipSku:  pipSku
+    pipProperties: pipProperties
+  }
+}
+...
+````
+Because assigning a PIP should be optional (see the requirements above) both the resource look-up and creation are done
+conditionally. Bicep supports respective syntax.
+
+If the ``existingPip`` parameter is set to ``true`` we look-up an existing PIP by its name.
+If the ``newPip`` parameter is set to ``true``, we create a new PIP by calling the PIP's core module. 
+Please note that we are already reusing our PIP core module here to create a new public IP address.
+If both parameters are set to ``false``, no PIP will be assigned (and you have to do with a private IP).
+Remember: setting both switches to ``true`` is not allowed and is considered to be a configuration error.
+
+Next, the exact same logic is applied to the assignment of a NSG:
+````
+...
+// find existing NSG for assignment
+resource nsgExisting 'Microsoft.Network/networkSecurityGroups@2022-05-01' existing = if (existingNsg) {
+  name: nsgName
+}
+
+// create NSG by consuming the NSG Core Module
+module nsgNew '../../core/nsg/nsg.bicep' = if (newNsg) {
+  name: 'nsgCreate'
+  params: {
+    location: location
+    nsgName: nsgName
+    nsgProperties: nsgProperties
+    nsgsrSecurityRules: nsgsrSecurityRules
+    createRules: createRules
+  }
+}
+...
+````
+There is nothing to add to this. 
+
+But now its getting more interesting as the references we just created or looked up have to be injected into the NIC's
+property object. Easier said than done in Bicep. I found the union-method to at least offer a solution, even if it is not a niche one.
+If there are better way to do it, please let me know.
+
+Let's start with with the ugliest part: inserting a reference into an array element (after that it only gets better).
+The first task is to inject the subnet-id into NIC's property object. The template documentation tells us where exactly 
+this id has to be inserted:
+
+<img src={{site.baseurl}}/images/nic-properties-ref.png">
+So ipConfigurations is an array where each element looks like this:
+
+<img src={{site.baseurl}}/images/ipconfig-ref.png">
+Finally we find the subnet at the end of the list. Just to make sure that inserting an id here is a valid option, 
+let's take a look at the subnet properties also:
+
+<img src={{site.baseurl}}/images/subnet-ref.png">
+
+Remember that this NIC-assembler currently supports only one ipConfiguration element.
+So the subnet-id has to be inserted the first element of the ipConfigurations array.
+The ipConfigurations array itself is a property of the NIC properties object.
+````
+...
+// injecting into array elements is a special case
+// get first array element for injection
+var ipConfigElement         = nicProperties.ipConfigurations[0]
+var injectedIpConfigElement0 = union(ipConfigElement, {
+  properties: {
+    subnet: {
+      id: snet.id
+    }
+  }
+})
+...
+````
+
+The complication here is that the union-function does not really work well with array elements. 
+It doesn't merge array elements but simply overwrites them.
+
+
+
+
+
+
 
 
