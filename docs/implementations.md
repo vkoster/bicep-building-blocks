@@ -231,14 +231,14 @@ Let's start with with the ugliest part: inserting a reference into an array elem
 The first task is to inject the subnet-id into NIC's property object. The template documentation tells us where exactly 
 this id has to be inserted:
 
-<img src={{site.baseurl}}/images/nic-properties-ref.png">
+<img src="{{site.baseurl}}/images/nic-properties-ref.png">
 So ipConfigurations is an array where each element looks like this:
 
-<img src={{site.baseurl}}/images/ipconfig-ref.png">
+<img src="{{site.baseurl}}/images/ipconfig-ref.png">
 Finally we find the subnet at the end of the list. Just to make sure that inserting an id here is a valid option, 
 let's take a look at the subnet properties also:
 
-<img src={{site.baseurl}}/images/subnet-ref.png">
+<img src="{{site.baseurl}}/images/subnet-ref.png">
 
 Remember that this NIC-assembler currently supports only one ipConfiguration element.
 So the subnet-id has to be inserted the first element of the ipConfigurations array.
