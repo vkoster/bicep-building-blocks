@@ -1,8 +1,8 @@
 - name: home
-  file: /bicep-building-blocks/index.html
+  file: /reusable-bicep-modules/
 - name: design decisions
-  file: /bicep-building-blocks/design-decisions/
+  file: /reusable-bicep-modules/design-decisions/
 - name: deployment
-  file: /bicep-building-blocks/deployment/
+  file: /reusable-bicep-modules/deployment/
 - name: implementations
-  file: /bicep-building-blocks/implementations/
+  file: /reusable-bicep-modules/implementations/

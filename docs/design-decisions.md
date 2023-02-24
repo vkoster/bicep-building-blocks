@@ -1,6 +1,6 @@
 ---
 permalink: /design-decisions/
-title: design decisions
+title: Design decisions
 description: This page describes the design decisions that were taken here in order to facilitate Bicep module reuse
 ---
 # Two-Tier Structure

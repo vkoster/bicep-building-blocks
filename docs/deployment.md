@@ -1,6 +1,6 @@
 ---
 permalink: /deployment/
-title: deployment
+title: Deployment
 description: This page describes how to deploy the Bicep modules for testing and verification
 ---
 # Deployment

@@ -4,7 +4,7 @@ param vnetName            string
 param snetName            string
 // Pip
 param existingPip         bool           // assign existing Pip
-param newPip              bool           // asign new Pip
+param newPip              bool           // assign new Pip
 param pipName             string
 param pipSku              object
 param pipProperties       object
@@ -77,9 +77,6 @@ var injectedIpConfigElement1 = (existingPip) ? union(injectedIpConfigElement0, {
     publicIPAddress: {
       id: pipExisting.id
     }
-    subnet: {
-      id: snet.id
-    }
   }
 }) : injectedIpConfigElement0
 
@@ -88,9 +85,6 @@ var injectedIpConfigElement2 = (newPip) ? union(injectedIpConfigElement1, {
   properties: {
     publicIPAddress: {
       id: pipNew.outputs.id
-    }
-    subnet: {
-      id: snet.id
     }
   }
 }) : injectedIpConfigElement1
