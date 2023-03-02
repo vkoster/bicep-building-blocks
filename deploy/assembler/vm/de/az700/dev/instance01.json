@@ -2,7 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-       
+        "vnetName": {
+            "value": "vnet-az700-01"
+        },
+        "snetName": {
+            "value": "subnet1"
+        },
+        "existingPip": {
+            "value": false
+        },
+        "newPip": {
+            "value": true
+        },
         "pipName": {
             "value": "pip-az700-1"
         },
@@ -16,6 +27,15 @@
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic"
             }
+        },
+        "existingNsg": {
+            "value": false
+        },
+        "newNsg": {
+            "value": true
+        },
+        "createRules":{
+            "value": true
         },
         "nsgName": {
             "value": "nsg-az700-01"
@@ -42,17 +62,14 @@
                 }
             ]
         },
-        "createRules":{
+        "existingNic": {
+            "value": false
+        },
+        "newNic": {
             "value": true
         },
         "nicName": {
             "value": "nic-az700-01"
-        },
-        "vnetName": {
-          "value": "vnet-az700-01"
-        },
-        "snetName": {
-          "value": "subnet1"
         },
         "nicProperties": {
           "value": {
@@ -68,9 +85,6 @@
             "nicType": "Standard"
           } 
         },
-        "createNsg": {
-            "value": true
-        },       
         "vmName": {
             "value": "vm-az700-01"
         },
@@ -99,8 +113,8 @@
                 },
                 "osProfile": {
                     "computerName": "vm-az700-01",
-                    "adminUsername": "vkoster",
-                    "adminPassword": "59DasMussBesserWerden!"
+                    "adminUsername": "myvmuser",
+                    "adminPassword": "59MakeThisBetterSoon!"
                 }
             }
         }

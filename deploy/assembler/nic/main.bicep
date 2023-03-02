@@ -4,7 +4,7 @@ param vnetName            string
 param snetName            string
 // Pip
 param existingPip         bool           // assign existing Pip
-param newPip              bool           // assign new Pip
+param newPip              bool           // asign new Pip
 param pipName             string
 param pipSku              object
 param pipProperties       object
@@ -63,6 +63,7 @@ module nsgNew '../../core/nsg/nsg.bicep' = if (newNsg) {
 // injecting into array elements is a special case
 // get first array element for injection
 var ipConfigElement         = nicProperties.ipConfigurations[0]
+
 var injectedIpConfigElement0 = union(ipConfigElement, {
   properties: {
     subnet: {
