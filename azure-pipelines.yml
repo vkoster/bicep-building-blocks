@@ -14,7 +14,7 @@ parameters:
     values:
       - dev
       - qa
-  - name: domain          # the idea is to group together resources that belong to a given domain
+  - name: domain
     type: string
     default: az700
     values:
@@ -45,7 +45,7 @@ steps:
 # Create Resource Groups
 - task: AzureCLI@2
   displayName: 'Bicep: create resource groups'
-  condition: false
+  condition: true
   inputs:
     azureSubscription: 'aks-devops-terraform-auto-all'     # service connection
     scriptType: 'pscore'
@@ -53,8 +53,41 @@ steps:
     arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -metaLocation $(metaLocation)'
     scriptPath: $(Build.SourcesDirectory)/modules/resourcegroup/deploy.ps1
 
+# Create VNets (old style)
+- task: AzureCLI@2
+  displayName: 'Bicep: creating vnets'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/modules/vnet/deploy.ps1
+
+  # Create VNets-Peers (old style)
+- task: AzureCLI@2
+  displayName: 'Bicep: creating vnet peerings'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/modules/vnet-peer/deploy.ps1
+
+  # Create Keyvaults (old style)
+- task: AzureCLI@2
+  displayName: 'Bicep: creating keyvaults'
+  condition: false
+  inputs:
+    azureSubscription: 'aks-devops-terraform-auto-all'
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '-country ${{parameters.country}} -domain ${{parameters.domain}} -stage ${{parameters.stage}} -resourceGroup rg-${{parameters.country}}-${{parameters.domain}}-${{parameters.stage}}'
+    scriptPath: $(Build.SourcesDirectory)/modules/keyvault/deploy.ps1
+
 # ==============================================================================
-# Run the assemblers to create resources
+# Here are the new Orchetrator Deployments
 # ------------------------------------------------------------------------------
 # Create VNets
 - task: AzureCLI@2
@@ -69,7 +102,7 @@ steps:
 
 - task: AzureCLI@2
   displayName: 'Assembler: creating vnet peerings'
-  condition: true
+  condition: false
   inputs:
     azureSubscription: 'aks-devops-terraform-auto-all'
     scriptType: 'pscore'
@@ -119,7 +152,7 @@ steps:
 
 - task: AzureCLI@2
   displayName: 'Assembler: creating vm'
-  condition: true
+  condition: false
   inputs:
     azureSubscription: 'aks-devops-terraform-auto-all'
     scriptType: 'pscore'

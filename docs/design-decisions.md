@@ -13,21 +13,23 @@ This approach distributes Bicep code over two tiers:
 - core-tier
 
 In most cases Azure resources are complex, i.e structured objects.
-A complex resource may be composed of an arbitrary number of embedded child resources or referenced resources (s.b.).
+A complex resource may be composed of an arbitrary number of embedded and referenced resources (s.b.).
 
 Just take a look at a network interface card (NIC) as an example:
 <img src="{{site.baseurl}}/images/Network-Interface-Card.png">
 
+And this is only a small subset of how a NIC could look like.
+
 So the job is to deploy complex resources composed of other resources, referenced or embedded.
 Therefore, we create assembler- and core-modules.
-An assembler knows how to create a complex resource and pulls everything together by consuming the necessary core-modules.
+An assembler knows how to create a complex resource and pulls everything together before consuming the necessary core-modules.
 
-Obviously, the core modules should be as reusable as possible. A module for creating public IP addresses for example, 
-can be useful in lot of scenarios. Therefore they have to be kept quite dumb but with a stable interface.
+Obviously, the core-modules should be as reusable as possible. A module for creating public IP addresses for example, 
+can be useful in a lot of scenarios. Therefore, they have to be kept quite dumb but with a stable interface.
 
 The assemblers represent the different use-cases. 
 An assembler covers a given scenario by calling the appropriate core-modules. It needs to be told what is 
-to be created, how to create it and what is expected as already exising.
+to be created, how to create it and what is expected to be already exising.
 
 ## Every Core-Module gets an Assembler
 We create assemblers for every core-module, even if the core-module is very simple and nothing is actually 
@@ -93,10 +95,18 @@ This parameter file contains three parameters:
 - vnetProperties
 - snetSubnets
 
-# Exposing Template Fragments as Parameters
+# Exposing "Template Fragments" as Parameters
 Using complex, i.e. structured or object parameters is probably the most controversial decision because it seems to
-be against how Bicep wants to be used.
+be against how Bicep wants to be used. For example, Bicep likes primitive values because it allows for quite detailed annotations.
+
 Let me go into the reasoning behind this decision before describing the concept.
+
+## Why do I call parameters "Template Fragments"
+I'm using peaces a given Bicep resource template as parameters. For loss of a better term I call these pieces "template fragments".
+The idea is to pass these parameters into a core module's resource block as they are.
+Only assembler logic modifies these fragments, mostly by injecting references to other resources.
+As such a fragment can be passed down to the core module as is, we can later enhance them as needed without causing
+a breaking change, as long as we stick to the Bicep resource template syntax.
 
 ## Why Expose Template Fragments
 Using primitive types as parameters results in very long parameter lists.
@@ -160,9 +170,11 @@ Note:
 - "location" is a special case as Bicep has a function do derive this from the resource-group - no parameter needed
 - I'm passing the resource name in - with good naming conventions you could let the module decide on its name
 
-The above parameter file is passed into the assembler "main.bicep"
-In this simple case - no child resources, no referenced resources - the assebmler just calls the pip core module.
-The parameters are simple passed through.
+The above parameter file is passed into the assembler "main.bicep".
+In this simple case - no child resources, no referenced resources - the assembler just calls the pip core module.
+The parameters are simple passed through. This is the important part: they are simply passed through.
+This is possible because the value of such a parameter is a fragment of the resource template. 
+And as long as we stick to this, we can enhance the parameters without breaking things.
 
 # Dealing with child resources
 ## What are Child Resources
@@ -285,6 +297,20 @@ With references, the assembler has to deal with these situations:
 - we want it to create and attach a reference
 - we want it to attach an existing reference
 - we don't want the reference to be attached at all
+
+Here is an example:
+
+We want to create a NIC that references an existing NSG.
+Accordingly, the parameter file describing this NIC at least needs:
+- a switch (boolean) telling the assembler that we want to attach a NSG
+- a switch (boolean) telling the assembler that this NSG already exists and does not need to be created here
+- the name of the NSG, by which the assembler can lookup the resource-id
+
+The assembler can now lookup this NSG and has to inject its resource-id into the NIC template fragment before passing 
+the fragment down to the NIC core-module.
+
+How this can be implemented is described in [implementations](implementations.md).
+Here is the actual code for depoying a [VM](https://github.com/vkoster/reusable-bicep-modules/blob/main/deploy/assembler/nic/main.bicep) or a [NIC](https://github.com/vkoster/reusable-bicep-modules/blob/main/deploy/assembler/vm/main.bicep) respectively.
 
 |[home](index.md) | [design decisions](design-decisions.md)| [deployment](deployment.md)|
 
