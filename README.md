@@ -35,6 +35,24 @@ Currently, the NIC assembler is the most complex one as it assembles a lot of re
 problem of optionally assigning resources. It also lets you choose between assigning existing or
 newly created resources.
 
+## Currently Available Modules
+Here's a list of the currently available modules and their reuse by parent-modules:
+- public IP address (pip)
+- network security group (nsg)
+  - child: security rules (nsgsr)
+- network interface card (nic)
+  - reference: virtual network (vnet)
+  - reference: subnet (snet)
+  - reference: public IP address (pip)
+  - reference: network security group (nsg)
+- virtual network (vnet)
+  - child: subnet (snet)
+- virtual network peering (vnet-peer)
+- virtual machine (vm)
+  - reference: network interface card (nic)
+- storage account (st)
+  - child: blob services/containers
+
 ## Utility commands
 ````
 // What is my current tenant:

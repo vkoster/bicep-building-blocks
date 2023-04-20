@@ -2,8 +2,8 @@
 This assembler creates a VM
 - with exactly 1 nic
   - to be created here
-    - with one optionl pip
-      - crated here
+    - with one optional pip
+      - created here
       - or already existing
     - with an optional nsg
       - created here
@@ -11,7 +11,7 @@ This assembler creates a VM
   - or already existing
 
 If you choose to create the nic here, then you decide about pip and nsg.
-If you choose to referece an already existing nic, you habe to take it 
+If you choose to reference an already existing nic, you have to take it
 as it is. 
 
 ----------------------------------------------------------------------------- */

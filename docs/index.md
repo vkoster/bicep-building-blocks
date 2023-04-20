@@ -1,7 +1,7 @@
 ---
 permalink: /
 title: Reusable Bicep Modules
-tags: [Bicep, Azure, IaC, infrastructure-as-code, reusable, modules]
+tags: [Bicep, Azure, IaC, infrastructure as code, reusable, modules]
 ---
 # Welcome to my Reusable Bicep Modules pages!
 This project is an effort to create reusable Bicep modules.
@@ -48,6 +48,24 @@ Currently, the NIC assembler is the most complex one as it assembles a lot of re
 problem of optionally assigning resources. It also lets you choose between assigning existing or 
 newly created resources for assignment. A detailed description of its code is [here](implementations.md).
 Other assemblers still habe to be leveled up.
+
+## Currently Available Modules
+Here's a list of the currently available modules and their reuse by parent-modules:
+- public IP address (pip)
+- network security group (nsg)
+  - child: security rules (nsgsr)
+- network interface card (nic)
+  - reference: virtual network (vnet)
+  - reference: subnet (snet)
+  - reference: public IP address (pip)
+  - reference: network security group (nsg)
+- virtual network (vnet)
+  - child: subnet (snet)
+- virtual network peering (vnet-peer)
+- virtual machine (vm)
+  - reference: network interface card (nic)
+- storage account (st)
+  - child: blob services/containers
 
 ## Valuable Links
 A small collection of links on Bicep that I found very helpful:
